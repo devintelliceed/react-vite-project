@@ -1,6 +1,6 @@
-import {memo} from "react";
-import Button from "../components/button.jsx";
-import userImg from "../assets/user-icon.png";
+import { memo } from 'react';
+import Button from '../components/button.jsx';
+import userImg from '../assets/user-icon.png';
 
 const UserInfo = memo(function UserInfo() {
 

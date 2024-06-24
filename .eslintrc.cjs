@@ -12,6 +12,11 @@ module.exports = {
   settings: { react: { version: '18.2' } },
   plugins: ['react-refresh'],
   rules: {
+    "arrow-spacing": ["warn", { "before": true, "after": true }],
+    "comma-spacing": ["warn", { "before": false, "after": true }],
+    "object-curly-spacing": ["warn", "always"],
+    "quotes": ["error", "single"],
+    "no-trailing-spaces": ["error"],
     'no-console': 'warn',
     'react/jsx-no-target-blank': 'off',
     'react-refresh/only-export-components': [

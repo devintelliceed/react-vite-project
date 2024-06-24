@@ -3,13 +3,12 @@
 import { useSelector } from 'react-redux';
 
 // local dependencies
-import Header from "./layout/header.jsx";
-import SideMenu from "./layout/side-menu.jsx";
-import HomePage from "./layout/home-page.jsx";
-import HistoryPage from "./layout/history-page.jsx";
-import AboutUSPage from "./layout/about-us-page.jsx";
-import { SOURCE_TYPE } from "./constants/types-const.js"
-import ToDoListPage from "./layout/to-do-list-page/index.jsx";
+import Header from './layout/header.jsx';
+import SideMenu from './layout/side-menu.jsx';
+import HistoryPage from './layout/history-page.jsx';
+import AboutUSPage from './layout/about-us-page.jsx';
+import { SOURCE_TYPE } from './constants/types-const.js'
+import ToDoListPage from './layout/to-do-list-page/index.jsx';
 
 function App() {
     //NOTE prepare data
@@ -17,9 +16,9 @@ function App() {
     let activeSource ;
 
     switch (source) {
-        case SOURCE_TYPE.HOME_PAGE:
-            activeSource = <HomePage />
-            break;
+        // case SOURCE_TYPE.HOME_PAGE:
+        //     activeSource = <HomePage />
+        //     break;
         case SOURCE_TYPE.TO_DO_LIST_PAGE:
             activeSource = <ToDoListPage />
             break;
@@ -30,13 +29,13 @@ function App() {
             activeSource = <AboutUSPage />
             break;
         default:
-            activeSource = <HomePage />
+            activeSource = <ToDoListPage />
     }
 
   return <div className="max-w-screen max-h-screen">
             <Header />
             <SideMenu />
-            <div className="mt-10">
+            <div className="mt-2">
                 {activeSource}
             </div>
       </div>;

@@ -1,19 +1,19 @@
 
 // outsource dependencies
-import { useDispatch } from "react-redux";
+import { useDispatch } from 'react-redux';
 import { memo, useCallback } from 'react';
 // local dependencies
 import logo from '../assets/logo.png';
-import Button from "../components/button.jsx";
+import Button from '../components/button.jsx';
 //component
-import UserInfo from "./user-info.jsx";
-import { mainSliceActions } from "../store/index.js";
-import { SOURCE_TYPE } from "../constants/types-const.js";
+import UserInfo from './user-info.jsx';
+import { mainSliceActions } from '../store/main-slice.js';
+import { SOURCE_TYPE } from '../constants/types-const.js';
 
 const Header = memo(function Header() {
     const dispatch = useDispatch();
     const toggleSideMenu = useCallback(() => {dispatch(mainSliceActions.toggleMenu());}, [dispatch]);
-    const handleHomePage = useCallback(() => {dispatch(mainSliceActions.setSource(SOURCE_TYPE.HOME_PAGE));}, [ dispatch ]);
+    const handleHomePage = useCallback(() => {dispatch(mainSliceActions.setSource(SOURCE_TYPE.HISTORY_PAGE));}, [ dispatch ]);
 
     return <header className="d-flex grid grid-cols-6 gap-4 border-2 border-gray-300 rounded-md shadow-sm bg-gray-100 h-1/6">
         <div className="flex m-2 col-start-1 col-end-5">

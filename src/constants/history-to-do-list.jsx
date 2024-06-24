@@ -29,7 +29,7 @@ const history = <>
         simple tablet of tasks could transform their productivity. Word of this innovation spread quickly through Uruk
         and eventually reached the king himself.</p>
     <img src={thirdImage} alt='list on rock' className="float-left size-48 m-2"/>
-    <p><br/>King Gilgamesh, intrigued by the idea, summoned Elam to his palace. {"Show me this method of yours,"} the
+    <p><br/>King Gilgamesh, intrigued by the idea, summoned Elam to his palace. {'Show me this method of yours,'} the
         king commanded. Elam presented his clay tablet, explaining how it helped him manage his numerous
         responsibilities. Impressed, Gilgamesh decreed that all scribes in his court should use this system to maintain
         order and efficiency.</p>

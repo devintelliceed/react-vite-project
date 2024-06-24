@@ -1,16 +1,16 @@
 
 //outsource dependencies
 import _ from 'lodash';
-import {memo, useCallback} from 'react'
+import { memo, useCallback } from 'react'
 
 //local dependencies
-import logo from "../assets/logo.png";
-import UserInfo from "./user-info.jsx";
-import Button from "../components/button.jsx";
-import { SOURCE_TYPE } from "../constants/types-const.js";
-import { sideMenuItems } from "../constants/layoutConsts.jsx";
-import {mainSliceActions} from "../store/index.js";
-import {useDispatch, useSelector} from "react-redux";
+import logo from '../assets/logo.png';
+import UserInfo from './user-info.jsx';
+import Button from '../components/button.jsx';
+import { SOURCE_TYPE } from '../constants/types-const.js';
+import { sideMenuItems } from '../constants/layoutConsts.jsx';
+import { mainSliceActions } from '../store/main-slice.js';
+import { useDispatch, useSelector } from 'react-redux';
 
 const SideMenu = memo( function SideMenu() {
     const isMenuOpen = useSelector(state => state.main.isMenuOpen);
@@ -27,24 +27,24 @@ const SideMenu = memo( function SideMenu() {
             <div
                 className={
                     isMenuOpen
-                        ? "fixed top-0 left-0 w-[310px] h-screen bg-gray-200 z-10 duration-300"
-                        : "fixed top-0 left-[-100%] w-[300px] h-screen bg-gray-100 z-10 duration-300"
+                        ? 'fixed top-0 left-0 w-[310px] h-screen bg-gray-200 z-10 duration-300'
+                        : 'fixed top-0 left-[-100%] w-[300px] h-screen bg-gray-100 z-10 duration-300'
                 }
             >
                 <header className="flex my-2 items-center justify-between w-full">
                     <div className="flex ">
                         <Button
-                            onClick={() => handleChangeSource(SOURCE_TYPE.HOME_PAGE)}
+                            onClick={() => handleChangeSource(SOURCE_TYPE.HISTORY_PAGE)}
                             className="flex m-2 bg-gray-200 hover:bg-gray-300 hover:border-gray-400 rounded-md shadow-2xl"
                         >
-                            <img className="object-fill h-8 w-16 " src={logo} alt="logo"/>
+                            <img className='object-fill h-8 w-16' src={ logo } alt='logo'/>
                             <span className="font-bold text-2xl text-gray-500">Learning Project</span>
                         </Button>
                     </div>
                 </header>
                 <Button
                     onClick={handleToggleSideMenu}
-                    className="absolute top-4 right-[-90px]  bg-gray-300 hover:bg-gray-400 hover:border-gray-400 rounded-md shadow-2xl"
+                    className="absolute top-4 right-[-90px] bg-gray-300 hover:bg-gray-400 hover:border-gray-400 rounded-md shadow-2xl"
                 >
                     <svg
                         className="w-8"
@@ -83,3 +83,4 @@ const SideMenu = memo( function SideMenu() {
 });
 
 export default SideMenu;
+

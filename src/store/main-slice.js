@@ -1,9 +1,9 @@
-import {SOURCE_TYPE} from "../constants/types-const.js";
-import {createSlice} from "@reduxjs/toolkit";
+import { SOURCE_TYPE } from '../constants/types-const.js';
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     isMenuOpen: false,
-    source: SOURCE_TYPE.HOME_PAGE,
+    source: SOURCE_TYPE.TO_DO_LIST_PAGE,
 };
 const reducers = {
     toggleMenu: (state) => {
@@ -12,7 +12,11 @@ const reducers = {
     setSource: (state, action) => {
         state.source = action.payload;
         state.isMenuOpen = false;
-    }
+    },
+    goToMainPage: (state) => {
+        state.source = SOURCE_TYPE.TO_DO_LIST_PAGE;
+        state.isMenuOpen = false;
+    },
 };
 const mainSlice = createSlice({
     name: 'mainSlice',
@@ -20,4 +24,5 @@ const mainSlice = createSlice({
     reducers,
 });
 
-export default mainSlice;
+export const mainSliceActions = mainSlice.actions;
+export default mainSlice.reducer;
