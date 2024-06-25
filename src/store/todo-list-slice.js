@@ -232,13 +232,23 @@ const initialState = {
 const reducers = {
 
     selectProject: (state, action) => {
-        if(state.selectedProject && state.selectedProject.id === action.payload.id) {
+        if ( state.selectedProject === null && action.payload === null ) {
+            return { ...state, selectedProject: undefined };
+        }
+        if ( state.selectedProject && state.selectedProject.id === action.payload.id ) {
             state.selectedProject = undefined;
-        } else {
+        }else {
             state.selectedProject = action.payload;
         }
     },
-    // addTask: (state, action) => {
+
+    viewProject: (state, action) => {
+        return { ...state, selectedProject: { id: action.payload, state: 'view' } };
+    },
+    editProject: (state, action) => {
+        return { ...state, selectedProject: { id:action.payload, state: 'edit' } };
+    },
+    // saveProject: (state, action) => {
     //
     // }
 
