@@ -6,8 +6,3 @@ export const SOURCE_TYPE  = {
     HOME_PAGE: 'HomePage',
 };
 
-// export const SIDE_MENU_ACTION =  {
-//     OPEN: "Open",
-//     CLOSE: "Close",
-//     TOGGLE: "Toggle",
-// };

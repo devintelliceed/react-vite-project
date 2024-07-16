@@ -7,7 +7,7 @@ import { toDoSliceActions } from '../../store/todo-list-slice.js';
 
 const NoProjectSelected = () => {
     const dispatch = useDispatch();
-    const handleSelectProject = useCallback(project => {dispatch(toDoSliceActions.selectProject(project));}, [dispatch]);
+    const handleSelectEditProject = useCallback(id => {dispatch(toDoSliceActions.editProject(id));}, [dispatch]);
     return <div className="fixed text-center left-[330px] w-3/4">
         <img
             className="object-contain mx-auto w-2/5 "
@@ -18,7 +18,7 @@ const NoProjectSelected = () => {
         <p className="text-xl text-gray-500 mb-4">Select a project or get started with a new one</p>
         <Button
             className="bg-gray-200 text-stone-800 hover:bg-gray-400 hover:border-gray-500"
-            onClick={() => handleSelectProject(null)}
+            onClick={() => handleSelectEditProject('new')}
         >
             Create new project
         </Button>

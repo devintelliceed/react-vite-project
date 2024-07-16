@@ -1,5 +1,7 @@
+//Outsource dependencies
 
 //NOTE ToDoSlice
+import uniqid from 'uniqid';
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
@@ -79,37 +81,37 @@ const initialState = {
                 {
                     id: 1,
                     task: 'Check email and respond to messages',
-                    timeRequired: '30 minutes',
+                    description: '30 minutes',
                     done: false
                 },
                 {
                     id: 2,
                     task: 'Plan tasks for the day',
-                    timeRequired: '1 hour',
+                    description: '1 hour',
                     done: false
                 },
                 {
                     id: 3,
                     task: 'Attend meetings or conferences',
-                    timeRequired: 'Varies',
+                    description: 'Varies',
                     done: false
                 },
                 {
                     id: 4,
                     task: 'Complete ongoing tasks and projects',
-                    timeRequired: 'Throughout the day',
+                    description: 'Throughout the day',
                     done: false
                 },
                 {
                     id: 5,
                     task: 'Collaborate with colleagues and management',
-                    timeRequired: 'As needed',
+                    description: 'As needed',
                     done: false
                 },
                 {
                     id: 6,
                     task: 'Plan next work day',
-                    timeRequired: 'As possible',
+                    description: 'As possible',
                     done: false
                 }
             ], },
@@ -122,42 +124,36 @@ const initialState = {
                     id: 1,
                     task: 'Breakfast',
                     description: 'Oatmeal with fruits and nuts',
-                    calories: 350,
                     done: false
                 },
                 {
                     id: 2,
                     task: 'Morning Snack',
                     description: 'Greek yogurt with honey and berries',
-                    calories: 200,
                     done: false
                 },
                 {
                     id: 3,
                     task: 'Lunch',
                     description: 'Grilled chicken salad with avocado and vinaigrette',
-                    calories: 450,
                     done: false
                 },
                 {
                     id: 4,
                     task: 'Afternoon Snack',
                     description: 'Apple slices with almond butter',
-                    calories: 150,
                     done: false
                 },
                 {
                     id: 5,
                     task: 'Dinner',
                     description: 'Salmon with quinoa and steamed vegetables',
-                    calories: 500,
                     done: false
                 },
                 {
                     id: 6,
                     task: 'Evening Snack',
                     description: 'Mixed nuts and dried fruits',
-                    calories: 250,
                     done: false
                 }
             ], },
@@ -230,16 +226,13 @@ const initialState = {
     ],
 };
 const reducers = {
-
-    selectProject: (state, action) => {
-        if ( state.selectedProject === null && action.payload === null ) {
-            return { ...state, selectedProject: undefined };
+    // PROJECTS actions
+    cancelEditing: (state) => {
+        const confirm = window.confirm('Are you sure?');
+        if (!confirm) {
+            return { ...state };
         }
-        if ( state.selectedProject && state.selectedProject.id === action.payload.id ) {
-            state.selectedProject = undefined;
-        }else {
-            state.selectedProject = action.payload;
-        }
+        return { ...state, selectedProject: undefined };
     },
 
     viewProject: (state, action) => {
@@ -248,10 +241,40 @@ const reducers = {
     editProject: (state, action) => {
         return { ...state, selectedProject: { id:action.payload, state: 'edit' } };
     },
-    // saveProject: (state, action) => {
-    //
-    // }
-
+    removeProject: (state, action) => {
+        const confirm = window.confirm('Are you sure?');
+        if (!confirm) { return { ...state }}
+        const index = state.projects.findIndex(project => project.id === action.payload);
+        let updatedProjects = state.projects.slice();
+        if (index === -1) { return }
+        updatedProjects.splice(index, 1);
+        return { ...state, selectedProject: undefined, projects: [...updatedProjects] };
+    },
+    submitProject: (state, action) => {
+        let projectData = {};
+        let updatedProjects = state.projects.slice()
+        if (action.payload.id) {
+            projectData = { ...action.payload };
+        } else {
+            projectData = { ...action.payload, id: uniqid() };
+        }
+        const index = state.projects.findIndex(project => project.id === projectData.id);
+        if (index === -1) {
+            updatedProjects.push(projectData);
+        } else {
+            updatedProjects[index] = projectData;
+        }
+        return { ...state, selectedProject: { id: projectData.id, state: 'view' }, projects: [...updatedProjects] };
+    },
+    // TASKS actions
+    checkTaskToggle: (state, action) => {
+        const projectId = state.selectedProject.id;
+        const updatedProjects = state.projects.slice();
+        const index = updatedProjects.findIndex(project => project.id === projectId);
+        const taskIndex = updatedProjects[index].tasks.findIndex(task => task.id === action.payload);
+        if (index === -1 && taskIndex === -1) { return }
+        updatedProjects[index].tasks[taskIndex].done = !updatedProjects[index].tasks[taskIndex].done;
+    },
 };
 const toDoListSlice = createSlice({
     name: 'toDoListSlice',
