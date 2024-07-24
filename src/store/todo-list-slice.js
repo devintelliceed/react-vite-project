@@ -1,8 +1,9 @@
-//Outsource dependencies
 
-//NOTE ToDoSlice
+//Outsource dependencies
+// import _ from 'lodash';
 import uniqid from 'uniqid';
 import { createSlice } from '@reduxjs/toolkit';
+//NOTE ToDoSlice
 
 const initialState = {
     selectedProject: undefined,
@@ -267,6 +268,29 @@ const reducers = {
         return { ...state, selectedProject: { id: projectData.id, state: 'view' }, projects: [...updatedProjects] };
     },
     // TASKS actions
+    submitTask: (state, action) => {
+        let taskData = {};
+        let updatedProjects = state.projects.slice();
+        const currentProject = updatedProjects.find( e => e.id === state.selectedProject.id);
+        const currentProjectIndex = updatedProjects.findIndex( e => e.id === state.selectedProject.id);
+
+        const currentTasks = currentProject.tasks;
+        if (action.payload.id !== 'new') {
+            taskData = { ...action.payload };
+        } else {
+            taskData = { ...action.payload, id: uniqid() };
+        }
+        const indexTask = currentTasks.findIndex(task => task.id === taskData.id);
+        if (indexTask === -1) {
+            currentTasks.push(taskData);
+        } else {
+            currentTasks[indexTask] = taskData;
+        }
+        updatedProjects[currentProjectIndex].tasks = currentTasks;
+        console.log('taskData', updatedProjects[currentProjectIndex].tasks);
+        console.log('currentTasks', currentTasks);
+        // return { ...state, projects: [...updatedProjects] };
+    },
     checkTaskToggle: (state, action) => {
         const projectId = state.selectedProject.id;
         const updatedProjects = state.projects.slice();

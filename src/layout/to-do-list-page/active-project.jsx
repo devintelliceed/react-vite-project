@@ -43,25 +43,24 @@ const ProjectShow = memo(function ProjectShow () {
 
 const Tasks = memo(function Tasks({ tasks }) {
     const edit = useRef();
-    const [taskId, setTaskId] = useState('newTask');
+    const [taskId, setTaskId] = useState();
     const handleOpenTaskEdit = useCallback(() => {
         edit.current.open();
     }, [edit]);
-    const handleEditcurrentTask = useCallback( editTaskId => {
-        console.log('editTaskID in Tasks handleEditcurrentTask', editTaskId);
-        setTaskId( editTaskId );
+    const handleEditCurrentTask = useCallback( id => {
+        setTaskId(id);
         handleOpenTaskEdit();
-    }, [handleOpenTaskEdit, setTaskId]);
+    }, [ handleOpenTaskEdit, setTaskId ]);
     return <>
         <EditTask ref={edit} taskId={taskId} ></EditTask>
         <div className="fixed left-[320px] w-3/4 border-gray-600 overflow-auto max-h-[640px] min-h-[600px]">
             <ul>
                 {_.isArray(tasks) && tasks.map((taskItem) => {
-                    return <TaskItem key={taskItem.id} taskItem={taskItem} openTaskEdit={handleEditcurrentTask} />
+                    return <TaskItem key={taskItem.id} taskItem={taskItem} openTaskEdit={handleEditCurrentTask} />
                 })}
             </ul>
             <Button
-                onClick={handleOpenTaskEdit}
+                onClick={() => handleEditCurrentTask('new')}
                 className="text-3xl ml-12 text-gray-500 cursor-pointer p-2 hover:border-gray-400 hover:text-white hover:bg-gray-400"
             >
                 +Add Task

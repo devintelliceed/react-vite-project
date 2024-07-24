@@ -15,25 +15,30 @@ const initialProjectState = {
 };
 
 const EditProject = memo(function EditProject() {
-    const dispatch = useDispatch();
-    const [errorState, setErrorState] = useState({ title: null, description: null });
+
+    // NOTE prepare state
     const [projectState, setProjectState] = useState(initialProjectState);
+    const [errorState, setErrorState] = useState({ title: null, description: null });
+
+    // NOTE prepare DATA
+    const dispatch = useDispatch();
     const allProjects = useSelector(state => state.toDoList.projects);
     const isEditing = useSelector(state => state.toDoList.selectedProject.state === 'edit');
     const projectId = useSelector(state => state.toDoList.selectedProject.id);
-
     const isNewProject = projectId === 'new';
     const selectedProject = allProjects.find(project => project.id === projectId);
     const handleRemoveProject = useCallback(() => {dispatch(toDoSliceActions.removeProject(projectId));}, [dispatch, projectId]);
 
+    // NOTE prepare effects & ref's
     useEffect(() => {
         if (!isNewProject) {
             setProjectState(selectedProject);
-        }
-        if (isNewProject) {
+        } else {
             setProjectState(initialProjectState);
         }
     }, [ selectedProject, isNewProject ]);
+
+    // NOTE prepare actions
     const handleChangeProjectState = e => setProjectState(prevState => {
         return {
             ...prevState,
@@ -97,21 +102,12 @@ const EditProject = memo(function EditProject() {
         return true;
     }, [projectState, setErrorState, handleClearErrorDesc]);
 
-    const handleValidateForm = useCallback(() => {
-        const validateTitle = handleValidateTitle();
-        const validateDesc = handleValidateDesc();
-        if ( validateTitle && validateDesc ) {
-            return true;
-        }
-        return false;
-    }, [handleValidateTitle, handleValidateDesc]);
-
     const handleSubmitProject = useCallback( e => {
         e.preventDefault();
-        if (handleValidateForm()) {
+        if (handleValidateTitle() && handleValidateDesc()) {
             dispatch(toDoSliceActions.submitProject(projectState));
         }
-        }, [ dispatch, projectState, handleValidateForm ]);
+        }, [ dispatch, projectState, handleValidateTitle, handleValidateDesc ]);
 
 
     return <div>
