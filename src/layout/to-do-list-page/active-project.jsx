@@ -101,6 +101,7 @@ const TaskItem = memo(function TaskItem({ taskItem, openTaskEdit }) {
                     </svg>
                 </Button>
                 <Button
+                    disabled={true}
                     className="text-xl m-3 cursor-pointer p-2 hover:border-gray-400 hover:text-white hover:bg-gray-400"
                 >
                     <svg className="w-5 hover:w-6" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">

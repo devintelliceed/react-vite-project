@@ -99,7 +99,7 @@ const EditTask = forwardRef(function EditTask( { children, taskId }, ref) {
         <menu className="flex items-center justify-end gap-4 my-4">
             <li>
                 <Button
-                    disabled
+                    disabled={true}
                     type="button"
                     // onClick={handleRemoveProject}
                     className="bg-gray-200 text-stone-800 hover:bg-gray-400 hover:border-gray-500"
